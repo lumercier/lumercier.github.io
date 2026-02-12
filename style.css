@@ -57,3 +57,43 @@ button:hover {
     color: #ff4d6d;        /* Un rouge un peu plus vif */
     animation: heartbeat 1.5s infinite; /* 1.5 seconde, en boucle infinie */
 }
+
+/* Conteneur pour mettre les boutons côte à côte */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Espace entre les deux boutons */
+    margin-top: 20px;
+}
+
+/* Style commun aux nouveaux boutons */
+.btn {
+    border: none;
+    padding: 10px 25px;
+    border-radius: 12px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
+/* Couleur Vert "Accepter" */
+.btn-accept {
+    background-color: #77dd77; /* Un vert pastel mignon */
+}
+
+.btn-accept:hover {
+    background-color: #5ecb5e;
+    transform: scale(1.05);
+}
+
+/* Couleur Rouge "Refuser" */
+.btn-refuse {
+    background-color: #ff6961; /* Un rouge/corail pastel */
+}
+
+.btn-refuse:hover {
+    background-color: #ff5248;
+    transform: scale(1.05);
+}
