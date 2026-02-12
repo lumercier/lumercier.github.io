@@ -27,7 +27,8 @@ h1 {
 }
 
 /* Un petit bouton interactif */
-button {
+/* On stylise les boutons de base, mais on laisse les boutons spéciaux tranquilles */
+button:not(.btn) {
     background-color: #ffc2d1;
     border: none;
     padding: 10px 20px;
