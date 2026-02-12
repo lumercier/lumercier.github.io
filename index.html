@@ -29,7 +29,7 @@
             transition: all 0.5s ease;
             max-height: 90vh;
             overflow-y: auto;
-            position: relative; /* Nécessaire pour placer le bouton oups par rapport à la carte */
+            position: relative; 
         }
 
         h1 {
@@ -126,7 +126,6 @@
         .btn-refuse { background-color: #ff6961; }
         .btn-refuse:hover { background-color: #ff5248; }
 
-        /* --- STYLE DU BOUTON "OUPS" EN HAUT À GAUCHE --- */
         .btn-back {
             position: absolute;
             top: 15px;
@@ -145,7 +144,7 @@
         }
 
         .btn-back span {
-            font-family: serif; /* Pour styliser le caractère < */
+            font-family: serif;
             font-size: 1.2rem;
             line-height: 0;
             margin-bottom: 2px;
@@ -153,7 +152,7 @@
 
         .btn-back:hover {
             color: #ff8fab;
-            transform: translateX(-3px); /* Petit effet de glissement vers la gauche */
+            transform: translateX(-3px);
         }
 
         #celebration {
@@ -208,8 +207,7 @@
         </div>
 
         <div id="celebration">
-            <!-- Le bouton Retour est maintenant placé ici, au-dessus du reste -->
-            <button class="btn-back" onclick="resetInvitation()"><span>&lt;</span> oups</button>
+            <button class="btn-back" onclick="resetInvitation()"><span>&lt;</span> oups je suis baka</button>
             
             <img src="bugcat-fan.gif" alt="Bugcat Celebration">
             <h2 style="color: #ff8fab; margin-top: 15px;">À samedi mon gros bb ! ✨</h2>
@@ -238,15 +236,20 @@
 
             const refuseBtn = document.getElementById('refuse-btn');
             refuseBtn.style.position = 'static';
+            refuseBtn.style.left = '';
+            refuseBtn.style.top = '';
         }
 
         const refuseBtn = document.getElementById('refuse-btn');
         refuseBtn.addEventListener('mouseover', () => {
             const x = Math.random() * (window.innerWidth - refuseBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - refuseBtn.offsetHeight);
-            refuseBtn.style.position = 'absolute';
+            
+            // On utilise 'fixed' pour que le bouton puisse sortir de la bulle
+            refuseBtn.style.position = 'fixed';
             refuseBtn.style.left = x + 'px';
             refuseBtn.style.top = y + 'px';
+            refuseBtn.style.zIndex = '1000'; // S'assurer qu'il passe au-dessus de tout
         });
     </script>
 </body>
