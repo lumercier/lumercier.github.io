@@ -24,9 +24,11 @@
             border: 3px solid #ffccd5;
             box-shadow: 0 15px 35px rgba(255, 143, 171, 0.2);
             text-align: center;
-            max-width: 400px;
+            max-width: 450px; /* Un peu plus large pour le confort */
             width: 90%;
             transition: all 0.5s ease;
+            max-height: 90vh;
+            overflow-y: auto; /* Permet de scroller si le planning est long sur mobile */
         }
 
         h1 {
@@ -36,8 +38,8 @@
         }
 
         p {
-            line-height: 1.5;
-            margin: 0.5rem 0;
+            line-height: 1.4;
+            margin: 0.4rem 0;
         }
 
         .button-group {
@@ -69,22 +71,22 @@
         .btn-refuse { background-color: #ff6961; }
         .btn-refuse:hover { background-color: #ff5248; }
 
-        /* Style pour le GIF de célébration */
         #celebration {
-            display: none; /* Caché par défaut */
+            display: none;
             margin-top: 20px;
         }
 
         #celebration img {
-            width: 350px;
+            width: 300px; /* Taille du GIF ajustée */
+            max-width: 100%;
             border-radius: 15px;
         }
 
         @keyframes heartbeat {
             0% { transform: scale(1); }
-            14% { transform: scale(1.3); }
+            14% { transform: scale(1.15); }
             28% { transform: scale(1); }
-            42% { transform: scale(1.3); }
+            42% { transform: scale(1.15); }
             70% { transform: scale(1); }
         }
 
@@ -93,58 +95,68 @@
             color: #ff4d6d;
             animation: heartbeat 1.5s infinite;
         }
+
+        /* Petit style pour le planning pour qu'il soit bien lisible */
+        #program {
+            margin: 15px 0;
+            text-align: left;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
     <div class="card" id="main-card">
         <h1 id="title"><span class="heart">❤️</span> Notre première Saint Valentin ! <span class="heart">❤️</span></h1>
-        <p id="message">La journée s'annonce bien chargée !</p>
-        <p id="sub-message">Voici notre programme :</p>
-        <p id="sub-message"><strong>13h30</strong> : Rendez vous à UGC les Halles 👫</p>
-        <p id="sub-message"><strong>13h40-15h50</strong> : Zootopie 2 🐰</p>
-        <p id="sub-message"><strong>16h30-17h30</strong> : Bar à jeux 🎲</p>
-        <p id="sub-message"><strong>18h</strong> : Début du premier date 👫</p>
-        <p id="sub-message"><strong>18h15</strong> : Bar de la rencontre 🍸</p>
-        <p id="sub-message"><strong>19h30</strong> : Crêperie 😋</p>
-        <p id="sub-message"><strong>20h30</strong> : Stand de crêpe 🤪</p>
-        <p id="sub-message"><strong>21h15</strong> : Didix est de retour chez elle 🥰</p>
+        
+        <!-- On regroupe tout ce qui doit disparaître ici -->
+        <div id="content-to-hide">
+            <p id="message">La journée s'annonce bien chargée !</p>
+            <p>Voici notre programme :</p>
+            
+            <div id="program">
+                <p><strong>13h30</strong> : Rendez-vous à UGC les Halles 👫</p>
+                <p><strong>13h40-15h50</strong> : Zootopie 2 🐰</p>
+                <p><strong>16h30-17h30</strong> : Bar à jeux 🎲</p>
+                <p><strong>18h00</strong> : Début du premier date 👫</p>
+                <p><strong>18h15</strong> : Bar de la rencontre 🍸</p>
+                <p><strong>19h30</strong> : Crêperie 😋</p>
+                <p><strong>20h30</strong> : Stand de crêpe 🤪</p>
+                <p><strong>21h15</strong> : Didix est de retour chez elle 🥰</p>
+            </div>
+        </div>
         
         <div class="button-group" id="buttons">
             <button class="btn btn-accept" onclick="acceptInvitation()">Accepter</button>
             <button class="btn btn-refuse" id="refuse-btn">Refuser</button>
         </div>
 
-        <!-- Zone pour le GIF qui apparaîtra au clic -->
         <div id="celebration">
             <img src="bugcat-fan.gif" alt="Bugcat Celebration">
-            <h2 style="color: #ff8fab; margin-top: 15px;">À samedi mon gros bb</h2>
+            <h2 style="color: #ff8fab; margin-top: 15px;">À samedi mon gros bb ! ✨</h2>
         </div>
     </div>
 
     <script>
         function acceptInvitation() {
-            // 1. On cache les boutons et les messages
+            // On cache tout le bloc de contenu (message + programme)
+            document.getElementById('content-to-hide').style.display = 'none';
             document.getElementById('buttons').style.display = 'none';
-            document.getElementById('message').style.display = 'none';
-            document.getElementById('sub-message').style.display = 'none';
             
-            // 2. On change le titre
+            // On change le titre
             document.getElementById('title').innerHTML = "C'est parfait ! <span class='heart'>❤️</span>";
 
-            // 3. On affiche le GIF
+            // On affiche le GIF
             document.getElementById('celebration').style.display = 'block';
             
-            // 4. On ajoute un petit effet de zoom à la carte
+            // On ajuste un peu la carte pour qu'elle se recentre bien
             document.getElementById('main-card').style.transform = 'scale(1.05)';
         }
 
-        // Optionnel : Un petit bonus pour le bouton refuser (il s'échappe !)
         const refuseBtn = document.getElementById('refuse-btn');
         refuseBtn.addEventListener('mouseover', () => {
             const x = Math.random() * (window.innerWidth - refuseBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - refuseBtn.offsetHeight);
             
-            // On le sort du flux pour qu'il bouge partout
             refuseBtn.style.position = 'absolute';
             refuseBtn.style.left = x + 'px';
             refuseBtn.style.top = y + 'px';
