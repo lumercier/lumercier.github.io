@@ -29,6 +29,7 @@
             transition: all 0.5s ease;
             max-height: 90vh;
             overflow-y: auto;
+            position: relative; /* Nécessaire pour placer le bouton oups par rapport à la carte */
         }
 
         h1 {
@@ -49,7 +50,6 @@
             margin: 0.4rem 0;
         }
 
-        /* --- STYLE DU PLANNING CORRIGÉ --- */
         #program {
             margin: 20px 0;
             text-align: left;
@@ -58,31 +58,26 @@
             padding-left: 30px;
         }
 
-        /* On a supprimé le #program::before qui faisait la ligne trop longue */
-
         .program-item {
             position: relative;
-            margin-bottom: 15px; /* Un peu plus d'espace pour la lisibilité */
+            margin-bottom: 15px; 
             padding-bottom: 5px;
         }
 
-        /* La ligne verticale : on l'attache à chaque item sauf le dernier */
         .program-item::after {
             content: '';
             position: absolute;
-            left: -21px; /* Aligné avec le centre du point */
-            top: 20px;   /* Commence sous le point */
-            bottom: -20px; /* Descend vers le point suivant */
+            left: -21px;
+            top: 20px;
+            bottom: -20px;
             width: 2px;
             background: #ffccd5;
         }
 
-        /* Règle magique : pas de ligne pour le dernier point ! */
         .program-item:last-child::after {
             display: none;
         }
 
-        /* Les petits points sur la ligne */
         .program-item::before {
             content: '';
             position: absolute;
@@ -102,7 +97,6 @@
             font-size: 0.95rem;
         }
 
-        /* --- BOUTONS --- */
         .button-group {
             display: flex;
             justify-content: center;
@@ -132,13 +126,43 @@
         .btn-refuse { background-color: #ff6961; }
         .btn-refuse:hover { background-color: #ff5248; }
 
+        /* --- STYLE DU BOUTON "OUPS" EN HAUT À GAUCHE --- */
+        .btn-back {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            background: none;
+            border: none;
+            color: #ffb7c5;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: color 0.2s, transform 0.2s;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: bold;
+        }
+
+        .btn-back span {
+            font-family: serif; /* Pour styliser le caractère < */
+            font-size: 1.2rem;
+            line-height: 0;
+            margin-bottom: 2px;
+        }
+
+        .btn-back:hover {
+            color: #ff8fab;
+            transform: translateX(-3px); /* Petit effet de glissement vers la gauche */
+        }
+
         #celebration {
             display: none;
             margin-top: 20px;
         }
 
         #celebration img {
-            width: 350px;
+            width: 300px;
             max-width: 100%;
             border-radius: 15px;
         }
@@ -184,12 +208,17 @@
         </div>
 
         <div id="celebration">
+            <!-- Le bouton Retour est maintenant placé ici, au-dessus du reste -->
+            <button class="btn-back" onclick="resetInvitation()"><span>&lt;</span> oups</button>
+            
             <img src="bugcat-fan.gif" alt="Bugcat Celebration">
-            <h2 style="color: #ff8fab; margin-top: 15px;">À samedi mon gros bb</h2>
+            <h2 style="color: #ff8fab; margin-top: 15px;">À samedi mon gros bb ! ✨</h2>
         </div>
     </div>
 
     <script>
+        const originalTitle = document.getElementById('title').innerHTML;
+
         function acceptInvitation() {
             document.getElementById('content-to-hide').style.display = 'none';
             document.getElementById('buttons').style.display = 'none';
@@ -197,6 +226,18 @@
             document.getElementById('title').style.whiteSpace = 'normal';
             document.getElementById('celebration').style.display = 'block';
             document.getElementById('main-card').style.transform = 'scale(1.05)';
+        }
+
+        function resetInvitation() {
+            document.getElementById('content-to-hide').style.display = 'block';
+            document.getElementById('buttons').style.display = 'flex';
+            document.getElementById('title').innerHTML = originalTitle;
+            document.getElementById('title').style.whiteSpace = 'nowrap';
+            document.getElementById('celebration').style.display = 'none';
+            document.getElementById('main-card').style.transform = 'scale(1)';
+
+            const refuseBtn = document.getElementById('refuse-btn');
+            refuseBtn.style.position = 'static';
         }
 
         const refuseBtn = document.getElementById('refuse-btn');
