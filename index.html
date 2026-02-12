@@ -50,6 +50,7 @@
             margin: 0.4rem 0;
         }
 
+        /* --- STYLE DU PLANNING --- */
         #program {
             margin: 20px 0;
             text-align: left;
@@ -97,6 +98,7 @@
             font-size: 0.95rem;
         }
 
+        /* --- BOUTONS --- */
         .button-group {
             display: flex;
             justify-content: center;
@@ -126,35 +128,6 @@
         .btn-refuse { background-color: #ff6961; }
         .btn-refuse:hover { background-color: #ff5248; }
 
-        .btn-back {
-            position: absolute;
-            top: 15px;
-            left: 20px;
-            background: none;
-            border: none;
-            color: #ffb7c5;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: color 0.2s, transform 0.2s;
-            padding: 5px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-weight: bold;
-        }
-
-        .btn-back span {
-            font-family: serif;
-            font-size: 1.2rem;
-            line-height: 0;
-            margin-bottom: 2px;
-        }
-
-        .btn-back:hover {
-            color: #ff8fab;
-            transform: translateX(-3px);
-        }
-
         #celebration {
             display: none;
             margin-top: 20px;
@@ -183,10 +156,10 @@
 </head>
 <body>
     <div class="card" id="main-card">
-        <h1 id="title"><span class="heart">❤️</span> Notre première Saint Valentin ! <span class="heart">❤️</span></h1>
+        <h1 id="title"><span class="heart">❤️</span> Notre première Saint Valentin <span class="heart">❤️</span></h1>
         
         <div id="content-to-hide">
-            <p id="message">La plus belle journée du monde</p>
+            <p id="message">La plus belle journée du monde !</p>
             <p>Voici notre programme :</p>
             
             <div id="program">
@@ -207,8 +180,6 @@
         </div>
 
         <div id="celebration">
-            <button class="btn-back" onclick="resetInvitation()"><span>&lt;</span> oups je suis baka</button>
-            
             <img src="bugcat-fan.gif" alt="Bugcat Celebration">
             <h2 style="color: #ff8fab; margin-top: 15px;">À samedi mon gros bb</h2>
             <h2 style="color: #ff8fab; margin-top: 15px;">#bisousàvolonté</h2>
@@ -216,41 +187,32 @@
     </div>
 
     <script>
-        const originalTitle = document.getElementById('title').innerHTML;
-
         function acceptInvitation() {
+            // Cache le contenu et les boutons
             document.getElementById('content-to-hide').style.display = 'none';
             document.getElementById('buttons').style.display = 'none';
+            
+            // Met à jour le titre
             document.getElementById('title').innerHTML = "C'est parfait ! <span class='heart'>❤️</span>";
             document.getElementById('title').style.whiteSpace = 'normal';
+            
+            // Affiche la célébration
             document.getElementById('celebration').style.display = 'block';
+            
+            // Petit effet visuel sur la carte
             document.getElementById('main-card').style.transform = 'scale(1.05)';
         }
 
-        function resetInvitation() {
-            document.getElementById('content-to-hide').style.display = 'block';
-            document.getElementById('buttons').style.display = 'flex';
-            document.getElementById('title').innerHTML = originalTitle;
-            document.getElementById('title').style.whiteSpace = 'nowrap';
-            document.getElementById('celebration').style.display = 'none';
-            document.getElementById('main-card').style.transform = 'scale(1)';
-
-            const refuseBtn = document.getElementById('refuse-btn');
-            refuseBtn.style.position = 'static';
-            refuseBtn.style.left = '';
-            refuseBtn.style.top = '';
-        }
-
+        // Logique du bouton qui s'enfuit
         const refuseBtn = document.getElementById('refuse-btn');
         refuseBtn.addEventListener('mouseover', () => {
             const x = Math.random() * (window.innerWidth - refuseBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - refuseBtn.offsetHeight);
             
-            // On utilise 'fixed' pour que le bouton puisse sortir de la bulle
             refuseBtn.style.position = 'fixed';
             refuseBtn.style.left = x + 'px';
             refuseBtn.style.top = y + 'px';
-            refuseBtn.style.zIndex = '1000'; // S'assurer qu'il passe au-dessus de tout
+            refuseBtn.style.zIndex = '1000';
         });
     </script>
 </body>
